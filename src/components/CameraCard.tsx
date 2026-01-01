@@ -1,46 +1,49 @@
-import { Play, MapPin } from 'lucide-react';
 import { Camera } from '../types';
-import { motion } from 'framer-motion';
+import { Play, MapPin } from 'lucide-react';
+import { cn } from '../utils/cn';
 
 interface CameraCardProps {
   camera: Camera;
-  onSelect: (camera: Camera) => void;
+  isActive: boolean;
+  onClick: (camera: Camera) => void;
 }
 
-export const CameraCard = ({ camera, onSelect }: CameraCardProps) => {
+export const CameraCard = ({ camera, isActive, onClick }: CameraCardProps) => {
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -5 }}
-      className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:shadow-lg"
+    <div 
+      onClick={() => onClick(camera)}
+      className={cn(
+        "group cursor-pointer rounded-xl border border-border overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/50",
+        isActive ? "ring-2 ring-primary border-transparent bg-accent" : "bg-card"
+      )}
     >
-      <div className="aspect-video w-full overflow-hidden relative">
+      <div className="relative aspect-video overflow-hidden">
         <img 
           src={camera.thumbnail} 
           alt={camera.name} 
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100 flex items-center justify-center">
-          <button 
-            onClick={() => onSelect(camera)}
-            className="rounded-full bg-primary/90 p-4 text-primary-foreground shadow-lg backdrop-blur-sm transition-transform hover:scale-110"
-          >
-            <Play className="h-8 w-8 fill-current pl-1" />
-          </button>
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="bg-background/90 p-3 rounded-full text-primary shadow-xl">
+            <Play className="w-6 h-6 fill-current" />
+          </div>
         </div>
-        <div className="absolute bottom-2 right-2 rounded-md bg-black/60 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
-          LIVE
-        </div>
+        {isActive && (
+          <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
+             <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold animate-pulse">
+               WATCHING
+             </div>
+          </div>
+        )}
       </div>
       
-      <div className="p-4">
-        <h3 className="font-semibold leading-none tracking-tight">{camera.name}</h3>
-        <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-          <MapPin className="h-3.5 w-3.5" />
-          <span>{camera.location}</span>
+      <div className="p-3">
+        <h3 className="font-semibold text-sm truncate">{camera.name}</h3>
+        <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
+          <MapPin className="w-3 h-3" />
+          <span className="truncate">{camera.location}</span>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
