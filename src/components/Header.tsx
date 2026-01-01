@@ -1,51 +1,32 @@
-import { Video, Map, List } from 'lucide-react';
-import { clsx } from 'clsx';
+import { Camera, MapPin, Menu } from 'lucide-react';
 
 interface HeaderProps {
-  viewMode: 'list' | 'map';
-  setViewMode: (mode: 'list' | 'map') => void;
+  toggleSidebar: () => void;
 }
 
-export const Header = ({ viewMode, setViewMode }: HeaderProps) => {
+export const Header = ({ toggleSidebar }: HeaderProps) => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-          <div className="rounded-lg bg-primary p-2">
-            <Video className="h-6 w-6 text-primary-foreground" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold tracking-tight">LA Cams</h1>
-            <p className="text-xs text-muted-foreground hidden sm:block">Live surveillance network</p>
-          </div>
+    <header className="h-16 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 flex items-center justify-between z-50 sticky top-0">
+      <div className="flex items-center gap-3">
+        <button 
+          onClick={toggleSidebar}
+          className="p-2 hover:bg-accent rounded-md lg:hidden"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+        <div className="flex items-center gap-2 text-primary">
+          <Camera className="w-6 h-6" />
+          <h1 className="font-bold text-xl tracking-tight">LA<span className="text-foreground">View</span></h1>
         </div>
-
-        <div className="flex items-center gap-1 rounded-lg border border-border bg-card p-1">
-          <button
-            onClick={() => setViewMode('list')}
-            className={clsx(
-              "flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-all",
-              viewMode === 'list' 
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-            )}
-          >
-            <List className="h-4 w-4" />
-            <span className="hidden sm:inline">List View</span>
-          </button>
-          <button
-            onClick={() => setViewMode('map')}
-            className={clsx(
-              "flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-all",
-              viewMode === 'map'
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-            )}
-          >
-            <Map className="h-4 w-4" />
-            <span className="hidden sm:inline">Map View</span>
-          </button>
+      </div>
+      
+      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <div className="hidden sm:flex items-center gap-1">
+          <MapPin className="w-4 h-4" />
+          <span>Los Angeles, CA</span>
         </div>
+        <div className="h-4 w-[1px] bg-border hidden sm:block"></div>
+        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full font-medium">LIVE</span>
       </div>
     </header>
   );
