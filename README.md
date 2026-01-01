@@ -1,13 +1,14 @@
-# LA Live Cams
+# LA Live Webcams
 
-A modern, responsive web application to view live webcams from Los Angeles.
+A modern, responsive web application displaying live webcams from Los Angeles locations using an interactive map and list view.
 
 ## Features
 
-- 🎥 Live streaming webcams (simulated via YouTube embeds)
-- 🗺️ Interactive map view using Leaflet
-- 🌓 Dark mode UI with glassmorphism effects
-- 📱 Fully responsive design
+- 🗺️ Interactive Map (Leaflet) with custom markers
+- 🎥 Live Video Feeds (YouTube Embeds)
+- 📱 Fully Responsive Design (Mobile & Desktop)
+- 🌗 Dark Mode UI
+- ⚡ Built with Vite, React, TypeScript & Tailwind CSS
 
 ## Getting Started
 
@@ -22,3 +23,11 @@ A modern, responsive web application to view live webcams from Los Angeles.
    ```
 
 3. Open your browser at `http://localhost:5173`
+
+## Tech Stack
+
+- React 18
+- TypeScript
+- Tailwind CSS
+- React Leaflet
+- Lucide Icons
